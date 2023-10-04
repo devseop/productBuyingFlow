@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "../App";
-import { ProductDetail } from "../components/ProductDetail";
+import { ProductDetail } from "../components/product/ProductDetail";
 
 export const Router = () => {
   return (
