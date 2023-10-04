@@ -9,7 +9,7 @@ export const ProductItem = ({ data }: { data: ProductProps }) => {
     <li>
       <Item to={`/products/${id}`}>
         <div>
-          <img src={`${image}`} />
+          <img src={image} alt="제품 이미지" />
         </div>
         <InfoContainer>
           <CategoryBagde>{category}</CategoryBagde>
@@ -52,7 +52,6 @@ const CategoryBagde = styled.span`
   font-size: 12px;
   font-weight: 600;
   color: rgba(80, 80, 80, 0.8);
-  width: fit-content;
   margin-bottom: 4px;
 `;
 
