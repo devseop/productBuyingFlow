@@ -35,7 +35,7 @@ const AppContainer = styled.div`
 `;
 
 const Header = styled.header`
-  margin: 20px 0 4px;
+  margin: 20px 0;
 
   h1 {
     font-size: 24px;
@@ -59,5 +59,5 @@ const Header = styled.header`
 `;
 
 const Main = styled.main`
-  margin: 20px 20px 48px;
+  margin: 0 20px 48px;
 `;
