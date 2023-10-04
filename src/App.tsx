@@ -1,34 +1,55 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import { useEffect, useState } from "react";
+import { ProductProps, ProductsList } from "./types/types";
+import { getData } from "./api/api";
+import { Link } from "react-router-dom";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [productList, setProductList] = useState<ProductsList>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getData();
+        setProductList(data);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <ul
+      style={{
+        display: "grid",
+        gridTemplateRows: "1fr 1fr 1fr 1fr",
+        gridTemplateColumns: "1fr 1fr 1fr 1fr",
+        rowGap: "16px",
+        columnGap: "16px",
+        margin: "40px",
+      }}
+    >
+      {productList?.map((product: ProductProps) => (
+        <li key={product.id} style={{ maxWidth: "180px", margin: "0 auto" }}>
+          <Link
+            to={`/products/${product.id}`}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              textDecoration: "none",
+              color: "#222",
+              textAlign: "center",
+              gap: "8px",
+            }}
+          >
+            <img src={`${product.thumbnailUrl}`} />
+            <p>{product.title}</p>
+          </Link>
+        </li>
+      ))}
+    </ul>
   );
 }
 
