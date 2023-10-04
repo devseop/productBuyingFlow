@@ -1,25 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { ProductProps, ProductsList } from "../types/types";
-
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
-const isProductProps = (data: any): data is ProductProps => {
-  const { id, title, price, description, category, image, rating } = data;
-
-  return (
-    typeof id === "number" &&
-    typeof title === "string" &&
-    typeof price === "number" &&
-    typeof description === "string" &&
-    typeof category === "string" &&
-    typeof image === "string" &&
-    typeof rating === "object"
-  );
-};
-
-const isProductList = (data: any): data is ProductsList => {
-  return Array.isArray(data) && data.every(isProductProps);
-};
+import { isProductList, isProductProps } from "../types/guard";
 
 export const getData = async (): Promise<ProductsList> => {
   try {
