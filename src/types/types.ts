@@ -1,5 +1,5 @@
 type ratingProps = {
-  rage: number;
+  rate: number;
   count: number;
 };
 
