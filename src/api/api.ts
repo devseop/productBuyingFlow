@@ -8,8 +8,7 @@ export const getData = async (): Promise<ProductsList> => {
       "https://fakestoreapi.com/products",
     );
     if (isProductList(res.data)) {
-      console.log("✅ getData() is OK");
-      console.log(res.data);
+      console.log("✅ success to get products data");
       return res.data;
     } else {
       throw new Error("Invalid data format from API.");
@@ -26,7 +25,7 @@ export const getProductData = async (id: number): Promise<ProductProps> => {
       `https://fakestoreapi.com/products/${id}`,
     );
     if (isProductProps(res.data)) {
-      console.log("✅ getProductData() is OK");
+      console.log("✅ success to get product detail data");
       console.log(res.data);
       return res.data;
     } else {
