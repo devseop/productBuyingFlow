@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getProductData } from "../api/api";
-import { ProductProps } from "../types/types";
+import { getProductData } from "../../api/api";
+import { ProductProps } from "../../types/types";
 import { useLocation } from "react-router-dom";
 
 export const ProductDetail = () => {
