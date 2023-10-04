@@ -13,7 +13,6 @@ export const ProductDetail = () => {
     const fetchProductData = async () => {
       try {
         const data = await getProductData(productId);
-        console.log(data);
         setProduct(data);
       } catch (e) {
         console.error(e);

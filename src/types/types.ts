@@ -1,9 +1,16 @@
+type ratingProps = {
+  rage: number;
+  count: number;
+};
+
 export type ProductProps = {
-  albumId: number;
   id: number;
-  thumbnailUrl: string;
   title: string;
-  url: string;
+  price: number;
+  description: string;
+  category: string;
+  image: string;
+  rating: ratingProps;
 };
 
 export type ProductsList = ProductProps[];

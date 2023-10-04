@@ -44,7 +44,7 @@ function App() {
               gap: "8px",
             }}
           >
-            <img src={`${product.thumbnailUrl}`} />
+            <img src={`${product.image}`} />
             <p>{product.title}</p>
           </Link>
         </li>
