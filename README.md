@@ -11,10 +11,14 @@
  ┃ ┃ ┣ ProductDetail.tsx
  ┃ ┃ ┣ ProductItem.tsx
  ┃ ┃ ┗ ProductList.tsx
- ┃ ┗ AppLayout.tsx
+ ┃ ┣ 📂 user
+ ┃ ┃ ┣ Profile.tsx
+ ┃ ┃ ┗ SignIn.tsx
+ ┃ ┣ AppLayout.tsx
+ ┃ ┣ BackButton.tsx
+ ┃ ┗ SkeletonUI.tsx
  ┣ 📂 pages
- ┃ ┣ App.tsx
- ┃ ┗ LoadingPage.tsx
+ ┃ ┗ App.tsx
  ┣ 📂 router
  ┃ ┗ router.tsx
  ┣ 📂 styles
@@ -22,6 +26,10 @@
  ┣ 📂 types
  ┃ ┣ guard.ts
  ┃ ┗ types.ts
+ ┣ 📂 utils
+ ┃ ┗ 📂 cache
+ ┃ ┃ ┣ cacheForProducts.ts
+ ┃ ┃ ┗ cacheForUser.ts
  ┣ main.tsx
  ┗ vite-env.d.ts
 ```
