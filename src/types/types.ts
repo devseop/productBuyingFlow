@@ -14,3 +14,8 @@ export type ProductProps = {
 };
 
 export type ProductsList = ProductProps[];
+
+export type UserInfoProps = {
+  username: string;
+  password: string;
+};
