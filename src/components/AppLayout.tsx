@@ -1,7 +1,8 @@
 import React, { ReactNode } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
-import { BiArrowBack } from "react-icons/bi";
+import { BackButton } from "./BackButton";
+import { BiUser } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 type AppLayoutProps = {
   children: ReactNode;
@@ -12,17 +13,18 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   children,
   pageTitle,
 }) => {
-  const navigate = useNavigate();
-
   return (
     <AppContainer>
       <Header>
-        {pageTitle === "Detail" ? (
-          <button onClick={() => navigate(-1)}>
-            <BiArrowBack />
-          </button>
-        ) : null}
+        {pageTitle === "Detail" ? <BackButton /> : null}
         {pageTitle && <h1>{pageTitle}</h1>}
+        {pageTitle === "Sign In" ? null : (
+          <LoginButton>
+            <Link to="/signin">
+              <BiUser />
+            </Link>
+          </LoginButton>
+        )}
       </Header>
       <Main>{children}</Main>
     </AppContainer>
@@ -45,16 +47,21 @@ const Header = styled.header`
     height: 40px;
     /* padding-top: 3px; */
   }
+`;
 
-  button {
-    position: absolute;
-    left: 20px;
-    width: 40px;
-    height: 40px;
-    border: none;
-    background-color: transparent;
-    font-size: 28px;
-    font-weight: 700;
+const LoginButton = styled.button`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background-color: transparent;
+  font-size: 28px;
+  font-weight: 700;
+
+  a {
+    color: black;
   }
 `;
 

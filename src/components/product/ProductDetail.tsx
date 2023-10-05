@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import styled from "@emotion/styled";
 import { AppLayout } from "../AppLayout";
 import { SkeletonUI } from "../SkeletonUI";
-import { getProductData } from "../../api/api";
+import { getData } from "../../api/api";
 import { ProductProps } from "../../types/types";
 
 export const ProductDetail = () => {
@@ -17,8 +17,8 @@ export const ProductDetail = () => {
   useEffect(() => {
     const fetchProductData = async () => {
       try {
-        const data = await getProductData(Number(productId));
-        setProduct(data);
+        const data = await getData(Number(productId));
+        setProduct(data as ProductProps);
       } catch (e) {
         console.error(e);
       }

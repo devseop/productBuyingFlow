@@ -13,9 +13,9 @@ export const ProductList = () => {
     const fetchData = async () => {
       try {
         const data = await getData();
-        setProductList(data);
-      } catch (e) {
-        console.error(e);
+        setProductList(data as ProductsList);
+      } catch (err) {
+        console.error(err);
       }
     };
 

@@ -1,37 +1,41 @@
-import { ProductProps, ProductsList } from "../types/types";
+import axios from "axios";
+import { ProductProps, ProductsList, UserInfoProps } from "../types/types";
 import { isProductList, isProductProps } from "../types/guard";
-import { fetchProductById, fetchProducts } from "../utils/cache";
+import { fetchWithCache } from "../utils/cache/cacheForProducts";
+import { storeTokenInCache } from "../utils/cache/cacheForUser";
 
-export const getData = async (): Promise<ProductsList> => {
-  try {
-    const res = await fetchProducts();
-    const data: ProductsList = await res.json();
+export const getData = async (
+  id?: number,
+): Promise<ProductsList | ProductProps> => {
+  const url = id
+    ? `https://fakestoreapi.com/products/${id}`
+    : "https://fakestoreapi.com/products";
 
-    if (isProductList(data)) {
-      console.log("✅ success to get products data");
-      return data;
-    } else {
-      throw new Error("Invalid data format from API.");
-    }
-  } catch (err) {
-    console.error("Fetch data error:", err);
-    throw err;
+  const res = await fetchWithCache(url);
+  const data: ProductsList | ProductProps = await res.json();
+
+  const isValid = id ? isProductProps(data) : isProductList(data);
+
+  if (isValid) {
+    return data;
+  } else {
+    throw new Error("Invalid data format from API.");
   }
 };
 
-export const getProductData = async (id: number): Promise<ProductProps> => {
+export const signInApi = async (userInfo: UserInfoProps) => {
   try {
-    const res = await fetchProductById(id);
-    const data: ProductProps = await res.json();
-    if (isProductProps(data)) {
-      console.log("✅ success to get product detail data");
-      console.log(data);
-      return data;
-    } else {
-      throw new Error("Invalid data format from API.");
-    }
-  } catch (err) {
-    console.error("Fetch data error:", err);
-    throw err;
+    const res = await axios.post(
+      "https://fakestoreapi.com/auth/login",
+      userInfo,
+    );
+    const token = res.data.token;
+
+    storeTokenInCache(userInfo, token);
+
+    return token;
+  } catch (error) {
+    console.error("Error during sign-in:", error);
+    throw error;
   }
 };
