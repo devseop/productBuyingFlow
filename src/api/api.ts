@@ -1,15 +1,15 @@
-import axios, { AxiosResponse } from "axios";
 import { ProductProps, ProductsList } from "../types/types";
 import { isProductList, isProductProps } from "../types/guard";
+import { fetchProductById, fetchProducts } from "../utils/cache";
 
 export const getData = async (): Promise<ProductsList> => {
   try {
-    const res: AxiosResponse<ProductsList> = await axios(
-      "https://fakestoreapi.com/products",
-    );
-    if (isProductList(res.data)) {
+    const res = await fetchProducts();
+    const data: ProductsList = await res.json();
+
+    if (isProductList(data)) {
       console.log("✅ success to get products data");
-      return res.data;
+      return data;
     } else {
       throw new Error("Invalid data format from API.");
     }
@@ -21,13 +21,12 @@ export const getData = async (): Promise<ProductsList> => {
 
 export const getProductData = async (id: number): Promise<ProductProps> => {
   try {
-    const res: AxiosResponse<ProductProps> = await axios(
-      `https://fakestoreapi.com/products/${id}`,
-    );
-    if (isProductProps(res.data)) {
+    const res = await fetchProductById(id);
+    const data: ProductProps = await res.json();
+    if (isProductProps(data)) {
       console.log("✅ success to get product detail data");
-      console.log(res.data);
-      return res.data;
+      console.log(data);
+      return data;
     } else {
       throw new Error("Invalid data format from API.");
     }
