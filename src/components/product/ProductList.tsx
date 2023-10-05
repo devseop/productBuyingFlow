@@ -4,6 +4,7 @@ import { ProductsList, ProductProps } from "../../types/types";
 import { ProductItem } from "./ProductItem";
 import styled from "@emotion/styled";
 import { AppLayout } from "../AppLayout";
+import { SkeletonUI } from "../SkeletonUI";
 
 export const ProductList = () => {
   const [productList, setProductList] = useState<ProductsList>([]);
@@ -23,11 +24,15 @@ export const ProductList = () => {
 
   return (
     <AppLayout pageTitle="Products">
-      <ListContainer>
-        {productList?.map((product: ProductProps) => (
-          <ProductItem data={product} key={product.id} />
-        ))}
-      </ListContainer>
+      {!productList ? (
+        <SkeletonUI />
+      ) : (
+        <ListContainer>
+          {productList?.map((product: ProductProps) => (
+            <ProductItem data={product} key={product.id} />
+          ))}
+        </ListContainer>
+      )}
     </AppLayout>
   );
 };

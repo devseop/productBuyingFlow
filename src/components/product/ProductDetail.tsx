@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import styled from "@emotion/styled";
 import { AppLayout } from "../AppLayout";
-import { LoadingPage } from "../../pages/LoadingPage";
+import { SkeletonUI } from "../SkeletonUI";
 import { getProductData } from "../../api/api";
 import { ProductProps } from "../../types/types";
 
@@ -30,7 +30,7 @@ export const ProductDetail = () => {
   return (
     <AppLayout pageTitle="Detail">
       {!product ? (
-        <LoadingPage />
+        <SkeletonUI />
       ) : (
         <>
           <ImageContainer>
