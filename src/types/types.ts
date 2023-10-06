@@ -13,7 +13,7 @@ export type ProductProps = {
   rating: ratingProps;
 };
 
-export type ProductsList = ProductProps[];
+export type ProductListProps = ProductProps[];
 
 export type UserInfoProps = {
   username: string;

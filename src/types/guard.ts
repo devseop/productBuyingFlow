@@ -1,4 +1,4 @@
-import { ProductProps, ProductsList } from "./types";
+import { ProductProps, ProductListProps } from "./types";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
@@ -16,6 +16,6 @@ export const isProductProps = (data: any): data is ProductProps => {
   );
 };
 
-export const isProductList = (data: any): data is ProductsList => {
+export const isProductList = (data: any): data is ProductListProps => {
   return Array.isArray(data) && data.every(isProductProps);
 };

@@ -1,18 +1,18 @@
 import axios from "axios";
-import { ProductProps, ProductsList, UserInfoProps } from "../types/types";
+import { ProductProps, ProductListProps, UserInfoProps } from "../types/types";
 import { isProductList, isProductProps } from "../types/guard";
 import { fetchWithCache } from "../utils/cache/cacheForProducts";
 import { storeTokenInCache } from "../utils/cache/cacheForUser";
 
 export const getData = async (
   id?: number,
-): Promise<ProductsList | ProductProps> => {
+): Promise<ProductListProps | ProductProps> => {
   const url = id
     ? `https://fakestoreapi.com/products/${id}`
     : "https://fakestoreapi.com/products";
 
   const res = await fetchWithCache(url);
-  const data: ProductsList | ProductProps = await res.json();
+  const data: ProductListProps | ProductProps = await res.json();
 
   const isValid = id ? isProductProps(data) : isProductList(data);
 
