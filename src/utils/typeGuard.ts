@@ -1,4 +1,4 @@
-import { ProductProps, ProductListProps } from "./types";
+import { ProductProps, ProductListProps } from "../types/types";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
