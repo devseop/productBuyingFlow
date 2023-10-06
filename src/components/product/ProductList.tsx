@@ -1,38 +1,61 @@
-import { useState, useEffect } from "react";
-import { getData } from "../../api/api";
-import { ProductsList, ProductProps } from "../../types/types";
-import { ProductItem } from "./ProductItem";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "@emotion/styled";
+
+import { ProductItem } from "./ProductItem";
 import { AppLayout } from "../AppLayout";
-import { SkeletonUI } from "../SkeletonUI";
+
+import { getData } from "../../api/api";
+import { RootState } from "../../rtk/store";
+import {
+  fetchProductListFailure,
+  fetchProductListStart,
+  fetchProductListSuccess,
+} from "../../rtk/slice/productSlice";
+
+import { ProductListProps, ProductProps } from "../../types/types";
 
 export const ProductList = () => {
-  const [productList, setProductList] = useState<ProductsList>([]);
+  // const [productList, setProductList] = useState<ProductListProps>([]);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const data = await getData();
+  //       setProductList(data as ProductListProps);
+  //     } catch (err) {
+  //       console.error(err);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
+
+  const dispatch = useDispatch();
+  const productList = useSelector(
+    (state: RootState) => state.product.productList,
+  );
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        dispatch(fetchProductListStart());
         const data = await getData();
-        setProductList(data as ProductsList);
+        dispatch(fetchProductListSuccess(data as ProductListProps));
       } catch (err) {
-        console.error(err);
+        dispatch(fetchProductListFailure(String(err)));
       }
     };
-
     fetchData();
-  }, []);
+  });
 
   return (
     <AppLayout pageTitle="Products">
-      {!productList ? (
-        <SkeletonUI />
-      ) : (
-        <ListContainer>
-          {productList?.map((product: ProductProps) => (
-            <ProductItem data={product} key={product.id} />
-          ))}
-        </ListContainer>
-      )}
+      <ListContainer>
+        {productList?.map((product: ProductProps) => (
+          <ProductItem data={product} key={product.id} />
+        ))}
+      </ListContainer>
     </AppLayout>
   );
 };

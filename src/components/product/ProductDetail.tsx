@@ -1,37 +1,57 @@
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "@emotion/styled";
+
 import { AppLayout } from "../AppLayout";
 import { SkeletonUI } from "../SkeletonUI";
+
 import { getData } from "../../api/api";
+import { useProductId } from "../../hooks/useProductId";
+import { RootState } from "../../rtk/store";
+import {
+  fetchProductByIdFailure,
+  fetchProductByIdStart,
+  fetchProductByIdSuccess,
+} from "../../rtk/slice/productSlice";
+
 import { ProductProps } from "../../types/types";
 
 export const ProductDetail = () => {
-  const [product, setProduct] = useState<ProductProps>();
+  const dispatch = useDispatch();
+  const product = useSelector(
+    (state: RootState) => state.product.selectedProduct,
+  );
+  const loading = useSelector((state: RootState) => state.product.loading);
 
-  // url에서 id를 찾아 해당 데이터를 불러오기 위한 변수 선언
-  const location = useLocation();
-  const substringToRemove = "/products/";
-  const productId = location.pathname.replace(substringToRemove, "");
+  const productId = useProductId();
 
   useEffect(() => {
     const fetchProductData = async () => {
       try {
+        dispatch(fetchProductByIdStart());
         const data = await getData(Number(productId));
-        setProduct(data as ProductProps);
-      } catch (e) {
-        console.error(e);
+        dispatch(fetchProductByIdSuccess(data as ProductProps));
+      } catch (err) {
+        dispatch(fetchProductByIdFailure(String(err)));
       }
     };
 
     fetchProductData();
   }, [productId]);
 
+  const goToBuy = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    console.log("buy");
+  };
+
+  console.log(loading, product);
+
+  if (loading === true) return <SkeletonUI />;
+
   return (
     <AppLayout pageTitle="Detail">
-      {!product ? (
-        <SkeletonUI />
-      ) : (
+      {/* {loading === true && <SkeletonUI />} */}
+      {loading === false && product && (
         <>
           <ImageContainer>
             <Image src={product.image} alt="제품 이미지" />
@@ -50,7 +70,9 @@ export const ProductDetail = () => {
           </DescContainer>
           <ButtonContainer>
             <Button isPrimary={false}>ADD TO CART</Button>
-            <Button isPrimary={true}>BUY NOW</Button>
+            <Button isPrimary={true} onClick={goToBuy}>
+              BUY NOW
+            </Button>
           </ButtonContainer>
         </>
       )}
