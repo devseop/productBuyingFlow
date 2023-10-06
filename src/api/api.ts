@@ -1,6 +1,6 @@
 import axios from "axios";
 import { ProductProps, ProductListProps, UserInfoProps } from "../types/types";
-import { isProductList, isProductProps } from "../types/guard";
+import { isProductList, isProductProps } from "../utils/typeGuard";
 import { fetchWithCache } from "../utils/cache/cacheForProducts";
 import { storeTokenInCache } from "../utils/cache/cacheForUser";
 
