@@ -7,6 +7,7 @@ import { AppLayout } from "../AppLayout";
 import { signInApi } from "../../api/api";
 import { useInput } from "../../hooks/useInput";
 import {
+  saveUserInfo,
   signInFailure,
   signInStart,
   signInSuccess,
@@ -30,6 +31,7 @@ export const SignIn = () => {
       dispatch(signInStart());
       const res = await signInApi(userInfo as BasicInfoProps);
       dispatch(signInSuccess(res));
+      dispatch(saveUserInfo(userInfo));
       console.log("✅ SignIn OK");
       navigate(-1);
     } catch (err) {

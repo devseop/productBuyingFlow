@@ -1,9 +1,12 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { UserInfoProps } from "../../types/types";
+import { BasicInfoProps, DetailInfoProps } from "../../types/types";
 
 type UserState = {
   token?: string;
-  userInfo?: UserInfoProps;
+  userInfo?: {
+    basic?: BasicInfoProps;
+    detail?: DetailInfoProps;
+  };
   loading: boolean;
   error: string | null;
 };
@@ -17,6 +20,12 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    saveUserInfo: (state, action: PayloadAction<BasicInfoProps>) => {
+      if (!state.userInfo) {
+        state.userInfo = {};
+      }
+      state.userInfo.basic = action.payload;
+    },
     signInStart: (state) => {
       state.loading = true;
       state.error = null;
@@ -36,7 +45,12 @@ const userSlice = createSlice({
   },
 });
 
-export const { signInStart, signInSuccess, signInFailure, signOut } =
-  userSlice.actions;
+export const {
+  saveUserInfo,
+  signInStart,
+  signInSuccess,
+  signInFailure,
+  signOut,
+} = userSlice.actions;
 
 export default userSlice.reducer;
