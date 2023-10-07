@@ -18,9 +18,9 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
       <Header>
         {pageTitle === "Detail" ? <BackButton /> : null}
         {pageTitle && <h1>{pageTitle}</h1>}
-        {pageTitle === "Sign In" ? null : (
+        {pageTitle === "Sign In" ? null : pageTitle === "Check Info" ? null : (
           <LoginButton>
-            <Link to="/signin">
+            <Link to="/signIn">
               <BiUser />
             </Link>
           </LoginButton>
