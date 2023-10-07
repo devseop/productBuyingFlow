@@ -23,7 +23,7 @@ export const ProductDetail = () => {
   const product = useSelector(
     (state: RootState) => state.product.selectedProduct,
   );
-  const authedToken = useSelector((state: RootState) => state.user.token);
+  const token = useSelector((state: RootState) => state.user.token);
   const loading = useSelector((state: RootState) => state.product.loading);
 
   const productId = useProductId();
@@ -44,7 +44,7 @@ export const ProductDetail = () => {
 
   const goToBuy = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    if (!authedToken) {
+    if (!token) {
       navigate("/signIn");
     } else {
       navigate("/buy/checkInfo");
