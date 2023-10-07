@@ -1,7 +1,7 @@
-import { UserInfoProps } from "../../types/types";
+import { BasicInfoProps } from "../../types/types";
 
 export const storeTokenInCache = async (
-  userInfo: UserInfoProps,
+  userInfo: BasicInfoProps,
   token: string,
 ) => {
   const { username } = userInfo;
@@ -10,7 +10,7 @@ export const storeTokenInCache = async (
   cache.put(`${username}_TOKEN`, res);
 };
 
-export const getTokenFromCache = async (userInfo: UserInfoProps) => {
+export const getTokenFromCache = async (userInfo: BasicInfoProps) => {
   const { username } = userInfo;
   const cache = await caches.open("TOKEN");
   const res = await cache.match(`${username}_TOKEN`);
@@ -20,7 +20,7 @@ export const getTokenFromCache = async (userInfo: UserInfoProps) => {
   return null;
 };
 
-export const removeTokenFromCache = async (userInfo: UserInfoProps) => {
+export const removeTokenFromCache = async (userInfo: BasicInfoProps) => {
   const { username } = userInfo;
   const cache = await caches.open("TOKEN");
   cache.delete(`${username}_TOKEN`);

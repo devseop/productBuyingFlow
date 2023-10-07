@@ -12,23 +12,23 @@ import {
   signInSuccess,
 } from "../../rtk/slice/userSlice";
 
-import { UserInfoProps } from "../../types/types";
+import { BasicInfoProps } from "../../types/types";
 
 export const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [userInfo, inputChangeHandler] = useInput<UserInfoProps>({
+  const [userInfo, inputChangeHandler] = useInput<BasicInfoProps>({
     username: "mor_2314",
     password: "83r5^_",
   });
 
-  const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+  const signInSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
       dispatch(signInStart());
-      const res = await signInApi(userInfo as UserInfoProps);
+      const res = await signInApi(userInfo as BasicInfoProps);
       dispatch(signInSuccess(res));
       console.log("✅ SignIn OK");
       navigate(-1);
@@ -39,7 +39,7 @@ export const SignIn = () => {
 
   return (
     <AppLayout pageTitle="Sign In">
-      <Form onSubmit={onSubmitHandler}>
+      <Form onSubmit={signInSubmitHandler}>
         <Input
           type="text"
           name="username"

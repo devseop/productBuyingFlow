@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ProductProps, ProductListProps, UserInfoProps } from "../types/types";
+import { ProductProps, ProductListProps, BasicInfoProps } from "../types/types";
 import { isProductList, isProductProps } from "../utils/typeGuard";
 import { fetchWithCache } from "../utils/cache/cacheForProducts";
 import { storeTokenInCache } from "../utils/cache/cacheForUser";
@@ -23,7 +23,7 @@ export const getData = async (
   }
 };
 
-export const signInApi = async (userInfo: UserInfoProps) => {
+export const signInApi = async (userInfo: BasicInfoProps) => {
   try {
     const res = await axios.post(
       "https://fakestoreapi.com/auth/login",

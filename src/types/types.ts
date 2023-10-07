@@ -15,7 +15,18 @@ export type ProductProps = {
 
 export type ProductListProps = ProductProps[];
 
-export type UserInfoProps = {
+export type BasicInfoProps = {
   username: string;
   password: string;
+};
+
+export type DetailInfoProps = {
+  realname: string;
+  phone: string;
+  address: string;
+};
+
+export type UserInfoProps = {
+  basic: BasicInfoProps;
+  detail: DetailInfoProps;
 };
