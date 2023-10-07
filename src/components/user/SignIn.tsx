@@ -1,33 +1,39 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import styled from "@emotion/styled";
+
 import { AppLayout } from "../AppLayout";
+
 import { signInApi } from "../../api/api";
+import { useInput } from "../../hooks/useInput";
+import {
+  signInFailure,
+  signInStart,
+  signInSuccess,
+} from "../../rtk/slice/userSlice";
+
+import { UserInfoProps } from "../../types/types";
 
 export const SignIn = () => {
   const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState({
+  const dispatch = useDispatch();
+
+  const [userInfo, inputChangeHandler] = useInput<UserInfoProps>({
     username: "mor_2314",
     password: "83r5^_",
   });
-
-  const userInfoHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setUserInfo((prev) => {
-      return { ...prev, [name]: value };
-    });
-    console.log("userInfo", userInfo);
-  };
 
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      await signInApi(userInfo);
-      console.log("✅ SignIn success");
-      navigate("/products");
-    } catch (e) {
-      console.error(e);
+      dispatch(signInStart());
+      const res = await signInApi(userInfo as UserInfoProps);
+      dispatch(signInSuccess(res));
+      console.log("✅ SignIn OK");
+      navigate(-1);
+    } catch (err) {
+      signInFailure(String(err));
     }
   };
 
@@ -39,7 +45,7 @@ export const SignIn = () => {
           name="username"
           placeholder="user name"
           value={userInfo.username}
-          onChange={userInfoHandler}
+          onChange={inputChangeHandler}
           autoFocus
         />
         <Input
@@ -47,7 +53,7 @@ export const SignIn = () => {
           name="password"
           placeholder="password"
           value={userInfo.password}
-          onChange={userInfoHandler}
+          onChange={inputChangeHandler}
         />
         <Button type="submit">Sign In</Button>
       </Form>
@@ -64,7 +70,6 @@ const Input = styled.input`
   margin-bottom: 16px;
   border-radius: 8px;
   border: 1px solid rgba(80, 80, 80, 0.2);
-  height: 40px;
   outline: none;
   padding: 12px;
   font-weight: 600;
