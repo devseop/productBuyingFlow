@@ -16,21 +16,6 @@ import {
 import { ProductListProps, ProductProps } from "../../types/types";
 
 export const ProductList = () => {
-  // const [productList, setProductList] = useState<ProductListProps>([]);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const data = await getData();
-  //       setProductList(data as ProductListProps);
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
-
   const dispatch = useDispatch();
   const productList = useSelector(
     (state: RootState) => state.product.productList,
@@ -47,7 +32,7 @@ export const ProductList = () => {
       }
     };
     fetchData();
-  });
+  }, [dispatch]);
 
   return (
     <AppLayout pageTitle="Products">

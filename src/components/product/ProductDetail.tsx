@@ -37,14 +37,14 @@ export const ProductDetail = () => {
     };
 
     fetchProductData();
-  }, [productId]);
+  }, [dispatch, productId]);
 
   const goToBuy = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     console.log("buy");
   };
 
-  console.log(loading, product);
+  // console.log(loading, product);
 
   if (loading === true) return <SkeletonUI />;
 
