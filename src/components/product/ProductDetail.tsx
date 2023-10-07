@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "@emotion/styled";
 
@@ -17,10 +18,12 @@ import {
 import { ProductProps } from "../../types/types";
 
 export const ProductDetail = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const product = useSelector(
     (state: RootState) => state.product.selectedProduct,
   );
+  const authedToken = useSelector((state: RootState) => state.user.token);
   const loading = useSelector((state: RootState) => state.product.loading);
 
   const productId = useProductId();
@@ -41,7 +44,11 @@ export const ProductDetail = () => {
 
   const goToBuy = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    console.log("buy");
+    if (!authedToken) {
+      navigate("/signIn");
+    } else {
+      navigate("/buy/checkInfo");
+    }
   };
 
   // console.log(loading, product);
