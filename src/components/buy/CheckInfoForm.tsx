@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "@emotion/styled";
 
 import { AppLayout } from "../AppLayout";
@@ -8,12 +8,14 @@ import { ProductItem } from "../product/ProductItem";
 
 import { useInput } from "../../hooks/useInput";
 import { RootState } from "../../rtk/store";
+import { checkInputVaild } from "../../utils/checkInputVaild";
 
 import { DetailInfoProps } from "../../types/types";
-import { checkInputVaild } from "../../utils/checkInputVaild";
+import { saveDetailInfo } from "../../rtk/slice/userSlice";
 
 export const CheckInfoForm = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const token = useSelector((state: RootState) => state.user.token);
   const selectedProduct = useSelector(
     (state: RootState) => state.product.selectedProduct,
@@ -26,7 +28,7 @@ export const CheckInfoForm = () => {
 
   const checkInfoSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(checkInfo);
+    dispatch(saveDetailInfo(checkInfo));
   };
 
   // token이 없을 때 로그인 화면으로 리다이렉트
@@ -37,7 +39,7 @@ export const CheckInfoForm = () => {
   });
 
   return (
-    <AppLayout pageTitle="Check Info">
+    <AppLayout>
       <ProductContainer>
         <ProductTitle>Product</ProductTitle>
         <ProductWrapper>

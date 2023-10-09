@@ -26,6 +26,12 @@ const userSlice = createSlice({
       }
       state.userInfo.basic = action.payload;
     },
+    saveDetailInfo: (state, action: PayloadAction<DetailInfoProps>) => {
+      if (!state.userInfo) {
+        state.userInfo = {};
+      }
+      state.userInfo.detail = action.payload;
+    },
     signInStart: (state) => {
       state.loading = true;
       state.error = null;
@@ -47,6 +53,7 @@ const userSlice = createSlice({
 
 export const {
   saveUserInfo,
+  saveDetailInfo,
   signInStart,
   signInSuccess,
   signInFailure,
