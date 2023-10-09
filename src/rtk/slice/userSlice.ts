@@ -6,6 +6,7 @@ type UserState = {
   userInfo?: {
     basic?: BasicInfoProps;
     detail?: DetailInfoProps;
+    paymentPassword?: string;
   };
   loading: boolean;
   error: string | null;

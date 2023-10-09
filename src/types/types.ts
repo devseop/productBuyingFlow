@@ -29,4 +29,5 @@ export type DetailInfoProps = {
 export type UserInfoProps = {
   basic: BasicInfoProps;
   detail: DetailInfoProps;
+  paymentPassword: string;
 };
