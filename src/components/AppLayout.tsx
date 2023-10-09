@@ -35,5 +35,5 @@ const AppContainer = styled.div`
 // `;
 
 const Main = styled.main`
-  margin: 78px 20px 48px;
+  padding: 78px 20px 48px;
 `;
