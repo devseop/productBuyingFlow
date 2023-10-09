@@ -17,7 +17,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ pageTitle }) => {
     <Header>
       <div>{pageTitle === "Products" ? null : <BackButton />}</div>
       <h1>{pageTitle}</h1>
-      {token && (
+      {token && pageTitle !== "Profile" && (
         <ProfileLink to="/profile">
           <BiUser />
         </ProfileLink>
