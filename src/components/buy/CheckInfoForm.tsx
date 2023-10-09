@@ -3,16 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "@emotion/styled";
 
+import { AppHeader } from "../AppHeader";
 import { AppLayout } from "../AppLayout";
 import { ProductItem } from "../product/ProductItem";
 
 import { useInput } from "../../hooks/useInput";
+import { saveDetailInfo } from "../../rtk/slice/userSlice";
 import { RootState } from "../../rtk/store";
 import { checkInputVaild } from "../../utils/checkInputVaild";
 
 import { DetailInfoProps } from "../../types/types";
-import { saveDetailInfo } from "../../rtk/slice/userSlice";
-import { AppHeader } from "../AppHeader";
 
 export const CheckInfoForm = () => {
   const navigate = useNavigate();
