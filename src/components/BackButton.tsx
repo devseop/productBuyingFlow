@@ -13,12 +13,12 @@ export const BackButton = () => {
 };
 
 const Button = styled.button`
-  position: absolute;
+  /* position: absolute;
   left: 20px;
   width: 40px;
-  height: 40px;
+  height: 40px; */
   border: none;
   background-color: transparent;
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 700;
 `;

@@ -16,6 +16,7 @@ import {
 } from "../../rtk/slice/productSlice";
 
 import { ProductProps } from "../../types/types";
+import { AppHeader } from "../AppHeader";
 
 export const ProductDetail = () => {
   const navigate = useNavigate();
@@ -47,43 +48,46 @@ export const ProductDetail = () => {
     if (!token) {
       navigate("/signIn");
     } else {
-      navigate("/buy/checkInfo");
+      navigate("/checkInfo");
     }
   };
 
-  // console.log(loading, product);
+  console.log(product);
 
   if (loading === true) return <SkeletonUI />;
 
   return (
-    <AppLayout pageTitle="Detail">
-      {/* {loading === true && <SkeletonUI />} */}
-      {loading === false && product && (
-        <>
-          <ImageContainer>
-            <Image src={product.image} alt="제품 이미지" />
-          </ImageContainer>
-          <AboveTitleContainer>
-            <CategoryBagde>{product.category}</CategoryBagde>
-          </AboveTitleContainer>
-          <Title>{product.title}</Title>
-          <InfoContainer>
-            <Price>${product.price}</Price>
-            <Stock>{product.rating.count} in a stock</Stock>
-          </InfoContainer>
-          <DescContainer>
-            <span>Description</span>
-            <p>{product.description}</p>
-          </DescContainer>
-          <ButtonContainer>
-            <Button isPrimary={false}>ADD TO CART</Button>
-            <Button isPrimary={true} onClick={goToBuy}>
-              BUY NOW
-            </Button>
-          </ButtonContainer>
-        </>
-      )}
-    </AppLayout>
+    <>
+      <AppHeader pageTitle="Details" />
+      <AppLayout>
+        {/* {loading === true && <SkeletonUI />} */}
+        {loading === false && product && (
+          <>
+            <ImageContainer>
+              <Image src={product.image} alt="제품 이미지" />
+            </ImageContainer>
+            <AboveTitleContainer>
+              <CategoryBagde>{product.category}</CategoryBagde>
+            </AboveTitleContainer>
+            <Title>{product.title}</Title>
+            <InfoContainer>
+              <Price>${product.price}</Price>
+              <Stock>{product.rating.count} in a stock</Stock>
+            </InfoContainer>
+            <DescContainer>
+              <span>Description</span>
+              <p>{product.description}</p>
+            </DescContainer>
+            <ButtonContainer>
+              <Button isPrimary={false}>ADD TO CART</Button>
+              <Button isPrimary={true} onClick={goToBuy}>
+                BUY NOW
+              </Button>
+            </ButtonContainer>
+          </>
+        )}
+      </AppLayout>
+    </>
   );
 };
 

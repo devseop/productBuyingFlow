@@ -14,6 +14,7 @@ import {
 } from "../../rtk/slice/userSlice";
 
 import { BasicInfoProps } from "../../types/types";
+import { AppHeader } from "../AppHeader";
 
 export const SignIn = () => {
   const navigate = useNavigate();
@@ -40,26 +41,29 @@ export const SignIn = () => {
   };
 
   return (
-    <AppLayout pageTitle="Sign In">
-      <Form onSubmit={signInSubmitHandler}>
-        <Input
-          type="text"
-          name="username"
-          placeholder="user name"
-          value={userInfo.username}
-          onChange={inputChangeHandler}
-          autoFocus
-        />
-        <Input
-          type="password"
-          name="password"
-          placeholder="password"
-          value={userInfo.password}
-          onChange={inputChangeHandler}
-        />
-        <Button type="submit">Sign In</Button>
-      </Form>
-    </AppLayout>
+    <>
+      <AppHeader pageTitle="Sign In" />
+      <AppLayout>
+        <Form onSubmit={signInSubmitHandler}>
+          <Input
+            type="text"
+            name="username"
+            placeholder="user name"
+            value={userInfo.username}
+            onChange={inputChangeHandler}
+            autoFocus
+          />
+          <Input
+            type="password"
+            name="password"
+            placeholder="password"
+            value={userInfo.password}
+            onChange={inputChangeHandler}
+          />
+          <Button type="submit">Sign In</Button>
+        </Form>
+      </AppLayout>
+    </>
   );
 };
 

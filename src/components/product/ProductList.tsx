@@ -14,6 +14,7 @@ import {
 } from "../../rtk/slice/productSlice";
 
 import { ProductListProps, ProductProps } from "../../types/types";
+import { AppHeader } from "../AppHeader";
 
 export const ProductList = () => {
   const dispatch = useDispatch();
@@ -34,14 +35,18 @@ export const ProductList = () => {
     fetchData();
   }, [dispatch]);
 
+  //TODO: 새로고침 시에도 로그인 정보가 유지되어야 함
   return (
-    <AppLayout pageTitle="Products">
-      <ListContainer>
-        {productList?.map((product: ProductProps) => (
-          <ProductItem data={product} key={product.id} />
-        ))}
-      </ListContainer>
-    </AppLayout>
+    <>
+      <AppHeader pageTitle="Products" />
+      <AppLayout>
+        <ListContainer>
+          {productList?.map((product: ProductProps) => (
+            <ProductItem data={product} key={product.id} />
+          ))}
+        </ListContainer>
+      </AppLayout>
+    </>
   );
 };
 
