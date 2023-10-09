@@ -5,6 +5,7 @@ import { SignIn } from "../components/user/SignIn";
 import { CheckInfoForm } from "../components/buy/CheckInfoForm";
 import { PaymentSecureKeypad } from "../components/buy/PaymentSecureKeypad";
 import { Profile } from "../components/user/Profile";
+import { PaymentSuccess } from "../components/buy/PaymentSuccess";
 
 export const Router = () => {
   return (
@@ -16,6 +17,7 @@ export const Router = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/checkInfo" element={<CheckInfoForm />} />
         <Route path="/payment" element={<PaymentSecureKeypad />} />
+        <Route path="/paymentSuccess" element={<PaymentSuccess />} />
       </Routes>
     </BrowserRouter>
   );
