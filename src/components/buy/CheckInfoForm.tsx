@@ -12,6 +12,7 @@ import { checkInputVaild } from "../../utils/checkInputVaild";
 
 import { DetailInfoProps } from "../../types/types";
 import { saveDetailInfo } from "../../rtk/slice/userSlice";
+import { AppHeader } from "../AppHeader";
 
 export const CheckInfoForm = () => {
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ export const CheckInfoForm = () => {
   const checkInfoSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(saveDetailInfo(checkInfo));
+    navigate("/payment");
   };
 
   // token이 없을 때 로그인 화면으로 리다이렉트
@@ -39,49 +41,52 @@ export const CheckInfoForm = () => {
   });
 
   return (
-    <AppLayout>
-      <ProductContainer>
-        <ProductTitle>Product</ProductTitle>
-        <ProductWrapper>
-          {selectedProduct && <ProductItem data={selectedProduct} />}
-        </ProductWrapper>
-      </ProductContainer>
-      <form onSubmit={checkInfoSubmitHandler}>
-        <InputContainer>
-          <label>Name</label>
-          <input
-            type="text"
-            name="realname"
-            placeholder="input your name"
-            value={checkInfo.realname}
-            onChange={inputChangeHandler}
-          />
-        </InputContainer>
-        <InputContainer>
-          <label>Phone</label>
-          <input
-            type="text"
-            name="phone"
-            placeholder="input your phone number"
-            value={checkInfo.phone}
-            onChange={inputChangeHandler}
-          />
-        </InputContainer>
-        <InputContainer>
-          <label>Address</label>
-          <input
-            type="text"
-            name="address"
-            placeholder="input your address"
-            value={checkInfo.address}
-            onChange={inputChangeHandler}
-          />
-        </InputContainer>
-        <ButtonContainer>
-          <Button isValid={checkInputVaild(checkInfo)}>KEEP BUYING</Button>
-        </ButtonContainer>
-      </form>
-    </AppLayout>
+    <>
+      <AppHeader pageTitle="Check Info" />
+      <AppLayout>
+        <ProductContainer>
+          <ProductTitle>Product</ProductTitle>
+          <ProductWrapper>
+            {selectedProduct && <ProductItem data={selectedProduct} />}
+          </ProductWrapper>
+        </ProductContainer>
+        <form onSubmit={checkInfoSubmitHandler}>
+          <InputContainer>
+            <label>Name</label>
+            <input
+              type="text"
+              name="realname"
+              placeholder="input your name"
+              value={checkInfo.realname}
+              onChange={inputChangeHandler}
+            />
+          </InputContainer>
+          <InputContainer>
+            <label>Phone</label>
+            <input
+              type="text"
+              name="phone"
+              placeholder="input your phone number"
+              value={checkInfo.phone}
+              onChange={inputChangeHandler}
+            />
+          </InputContainer>
+          <InputContainer>
+            <label>Address</label>
+            <input
+              type="text"
+              name="address"
+              placeholder="input your address"
+              value={checkInfo.address}
+              onChange={inputChangeHandler}
+            />
+          </InputContainer>
+          <ButtonContainer>
+            <Button isValid={checkInputVaild(checkInfo)}>KEEP BUYING</Button>
+          </ButtonContainer>
+        </form>
+      </AppLayout>
+    </>
   );
 };
 
